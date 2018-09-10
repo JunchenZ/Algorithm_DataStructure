@@ -1,0 +1,72 @@
+<html>
+<body style="overflow: hidden;">
+<div id="chartContainer">
+  
+  <!-- we rely on two javascript libraries, d3 & dimple: -->
+  <script src="d3.min.js"></script>
+  <script src="dimple.v2.1.6.min.js"></script>
+  
+  <!-- chart title -->
+  <span id="chart-title" style="position: absolute; margin: 2% 0 0 11%; font-weight: bold;"></span>
+  
+  <!-- below is the javascript code to create a chart from a CSV file -->
+  <script type="text/javascript">
+    
+    // create an SVG with the specified width and height (scales to browser window)
+    var width = "100%";
+    var height = "95%";
+    var svg = dimple.newSvg("#chartContainer", width, height);
+    
+    // load in data (from d3) and pass into dimple to create a line chart
+    d3.csv("data.csv", function (data) {
+      
+      // create measures for our charts
+      // these are simply strings pulled from the first row of our CSV file
+      // the first column is index 0, and so on
+      // for example data, x-axis is objects (N) and y-axis is time (ns)
+      var keys = Object.keys(data[0]);
+      var xMeasure = keys[1];
+      var yMeasure = keys[2];
+      var title = keys[0];
+      var series = [xMeasure, title];
+      var series2 = [yMeasure, xMeasure, title];
+      
+      // create a new chart in dimple
+      var myChart = new dimple.chart(svg, data);
+      
+      // update chart title based on the first header row of our data
+      d3.select("#chart-title").text(title);
+      
+      // add our axes to the dimple chart
+      myChart.addMeasureAxis("y", yMeasure);
+      var x = myChart.addMeasureAxis("x", xMeasure);
+      
+      // for this example, we want our x-axis to use a log scale
+      // additionally, it uses a log base 2 scale, because we are cool cats!
+      x.useLog = true;
+      x.logBase = 2;
+      
+      // dynamically gets min and max values for the x-axis from the data
+      var xData = data.map(function(o){
+        return o[xMeasure];
+      }).map(Number);
+      var xMin = Math.min.apply(null, xData);
+      var xMax = Math.max.apply(null, xData);
+      x.overrideMin = xMin;
+      x.overrideMax = xMax;
+      
+      // add lines based on their xMeasure & type
+      // second series adds points as circles to emphasize data values
+      myChart.addSeries(series, dimple.plot.line);
+      myChart.addSeries(series2, dimple.plot.bubble);
+      
+      // add a legend for our series
+      myChart.addLegend("50%", "5%", "40%", "10%", "right");
+      
+      // lastly, draw our chart!
+      myChart.draw();
+    });
+  </script>
+</div>
+</body>
+</html>

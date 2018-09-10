@@ -1,0 +1,137 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf100
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+{\info
+{\author Junchen Zhang}}\margl1440\margr1440\vieww28800\viewh18000\viewkind1\viewscale150
+\deftab720
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\f0\fs24 \cf0 Lab 1 Worksheet\
+\
+Answer the following questions by modifying this text file. Add your answer below each question.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b \cf0 1. Where is the assertEquals method defined? What does it do? Can we use assertEquals for more than just int types? (Hint: Consult the API for JUnit)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b0 \cf0 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri0\partightenfactor0
+\cf0 (1) It is defined in 
+\i public class Assert extends java.lang.Object
+\i0 . To use it, \
+     
+\i import static org.junit.Assert.*;
+\i0   is needed.\
+(2) It asserts the parameters to be passed to this method are equal. If not, then the test \
+     in which the assert is called is not passed.\
+(3) Yes we can use it for double, long, String, object etc\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b \cf0 2. Briefly describe what each of the three tests is checking.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b0 \cf0 (1) 
+\i emptyArray()
+\i0 \
+     It is checking if the method returns -1 when the array has 0 element.\
+\pard\pardeftab720\ri0\partightenfactor0
+\cf0 (2) 
+\i allArrayElementsEqual()\
+
+\i0      It is checking if the method returns 0 when all elements are equal.\
+(3) 
+\i smallRandomArrayElements()
+\i0 \
+\pard\pardeftab720\partightenfactor0
+\cf0      It is checking if the method returns the correct value when the array is self-defined. \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b \cf0 \
+3. Why is our unimplemented findSmallestDiff method passing one of the tests?\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b0 \cf0 Because it returns 0 when it is called. Hence, it can pass the second test since the expected result of the second test is 0.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b \cf0 \
+4. Why are we failing the third test? How should our method be modified to correct this?\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b0 \cf0 (1) Because it calculates the difference by directly subtract one value from another, so \
+      -8 is the smallest difference in this case. However, what we need is the smallest \
+      distance between two values.\
+(2) We should use 
+\i Math.abs()
+\i0  to calculate the difference.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b \cf0 \
+5. What is the appropriate call to assertEquals for your new test (test 4)?\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b0 \cf0 I made an array includes the 
+\i Integer.MAX_VALUE
+\i0  and 
+\i -Integer.MAX_VALUE
+\i0 .\
+And the smallest difference should be 31 in my case. So I wrote:\
+\pard\pardeftab720\ri0\partightenfactor0
+
+\i \cf0 \
+    assertEquals(31, DiffUtil.findSmallestDiff(arr4));\
+\pard\pardeftab720\ri0\partightenfactor0
+
+\i0 \cf0 \
+However, due to the overflow/underflow, the result is not what is expected so the test is \
+not passed.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b \cf0 \
+6. Provide one more test (test 5) for the findSmallestDiff method. Briefly describe your test and write the call to assertEquals here.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b0 \cf0 I would create an array contains 0, positive integer, negative integer, large integers, maximum values:\
+\
+\pard\pardeftab720\ri0\partightenfactor0
+
+\i \cf0     arr5 = new int[] \{ 52, 88434, Integer.MAX_VALUE, -10, -Integer.MAX_VALUE, 0\};\
+\
+\pard\pardeftab720\ri0\partightenfactor0
+
+\i0 \cf0 The test is:\
+\
+\pard\pardeftab720\ri0\partightenfactor0
+
+\i \cf0     assertEquals(10, DiffUtil.findSmallestDiff(
+\i0 arr5
+\i ));\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\i0\b \cf0 \
+7. Briefly describe your unit tests for Assignment 1.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\b0 \cf0 I created several Vector3D objects including equal elements, large elements, negative elements and maximum values. For example:\
+\
+\pard\pardeftab720\ri0\partightenfactor0
+
+\i \cf0 v1 = new Vector3D(3, 3, 3);\
+v2 = new Vector3D(9000.3245, 23400.54, 357013.567);\
+v3 = new Vector3D(-6, -3, -98);\
+v4 = new Vector3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ri0\partightenfactor0
+
+\i0 \cf0 \
+Then I tested constructor, equals(), getMagnitude(), plus(), times() with the Vector3D objects above.\
+\
+}
